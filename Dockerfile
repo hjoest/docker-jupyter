@@ -11,15 +11,16 @@ RUN echo "deb http://ppa.launchpad.net/fkrull/deadsnakes/ubuntu xenial main" \
 
 RUN apt-get update \
     && apt-get upgrade -y \
-    && apt-get install -y \
-           automake build-essential ca-certificates gcc gfortran git gsl-bin \
-           libblas-dev libfreetype6-dev libgsl0-dev libjpeg-dev liblapack-dev \
-           libpng-dev libpq-dev libtool make mercurial pkg-config ssh \
-           pandoc pandoc-citeproc etoolbox wkhtmltopdf \
-           texlive-xetex texlive-luatex texlive-latex-recommended \
-           python3.5 python3.5-dev ruby2.3 ruby2.3-dev \
+    && apt-get install -y --no-install-recommends \
+           automake build-essential ca-certificates etoolbox gcc gfortran git gnumeric \
+           gsl-bin libblas-dev libfreetype6-dev libgsl0-dev libjpeg-dev liblapack-dev \
+           libpng-dev libpq-dev libtool make mercurial pandoc pandoc-citeproc pkg-config \
+           python3.5 python3.5-dev ruby2.3 ruby2.3-dev ssh \
+           texlive-latex-recommended texlive-luatex texlive-xetex wget wkhtmltopdf \
+    && ln -s python3.5 /usr/bin/python3 \
     && apt-get autoremove \
     && apt-get clean
+
 
 RUN cd /tmp \
     && wget --quiet https://bootstrap.pypa.io/get-pip.py \
@@ -50,20 +51,18 @@ RUN pip3 install -U sympy==1.0 \
     && pip3 install -U xlrd==1.0.0 \
     && pip3 install -U joblib==0.10.3 \
     && pip3 install -U chardet==2.3.0 \
-    && pip3 install -U Bottlechest==0.7.1
+    && pip3 install -U Bottlechest==0.7.1 \
+    && pip3 install -U ipython==5.1.0 \
+    && pip3 install -U jupyter==1.0.0 \
+    && pip3 install jupyter_client==4.4.0 \
+    && pip3 install bash_kernel==0.4.1 \
+    && python3 -m bash_kernel.install
 
 # TODO: thrift, happybase, spark, mllib
-
-RUN pip3 install -U ipython==5.1.0 \
-    && pip3 install -U jupyter==1.0.0
 
 RUN cd /usr/local/lib/python3.5/dist-packages/notebook/static/components \
     && wget --quiet https://github.com/mathjax/MathJax/archive/v2.6-latest.tar.gz \
     && rm -rf MathJax && tar xzf v2.6-latest.tar.gz && mv -f MathJax-2.6-latest MathJax
-
-RUN pip3 install jupyter_client==4.4.0 \
-    && pip3 install bash_kernel==0.4.1 \
-    && python3 -m bash_kernel.install
 
 ENV LD_LIBRARY_PATH /var/lib/gems/2.3.0/gems/rbczmq-1.7.9/ext/rbczmq/dst/lib/
 RUN ln -s /usr/bin/libtoolize /usr/bin/libtool \
