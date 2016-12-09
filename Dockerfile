@@ -58,7 +58,14 @@ RUN pip3 install -U sympy==1.0 \
     && pip3 install bash_kernel==0.4.1 \
     && python3 -m bash_kernel.install
 
-# TODO: thrift, happybase, spark, mllib
+RUN pip3 install -U pyyaml==3.12 \
+    && pip3 install -U h5py==2.6.0 \
+    && pip3 install -U keras==1.1.2
+
+RUN pip3 install -U thrift==0.9.3 \
+    && pip3 install -U happybase==1.0.0
+
+# TODO: spark mllib
 
 RUN cd /usr/local/lib/python3.5/dist-packages/notebook/static/components \
     && wget --quiet https://github.com/mathjax/MathJax/archive/v2.6-latest.tar.gz \
