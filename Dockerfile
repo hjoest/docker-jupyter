@@ -65,6 +65,8 @@ RUN pip3 install -U pyyaml==3.12 \
 RUN pip3 install -U thrift==0.9.3 \
     && pip3 install -U happybase==1.0.0
 
+RUN pip3 install xlsxwriter
+
 # TODO: spark mllib
 
 RUN cd /usr/local/lib/python3.5/dist-packages/notebook/static/components \
