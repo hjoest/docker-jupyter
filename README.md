@@ -4,20 +4,23 @@
 
 * Numpy
 * Scipy
-* Scikit-learn
+* scikit-learn
+* scikit-image
 * Matplotlib
 * SymPy
 * Pandas
 * NLTK
 * Tensorflow
 * Keras
-* IRuby
 * RISE
 * Thrift
+* QuTiP
+* Statsmodels
+* and others...
 
 ### Usage
 
       docker run -d --name jupyter -p 8888:8888 -v `pwd`:/notebook hjoest/jupyter
-      docker logs jupyter 2>&1 | grep running
+      docker logs jupyter
 
 Open the displayed URL in a browser.
